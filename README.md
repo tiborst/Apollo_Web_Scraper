@@ -1,6 +1,7 @@
 # Apollo2_scraper
 Webscraper of WoW private server data (with permission from site owner)
-\n*spare time project*
+
+*spare time project*
 
 - Some descriptive stats:
 [descriptive statistics](ApolloPy_R.md)
