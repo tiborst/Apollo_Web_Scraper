@@ -99,12 +99,6 @@ data_df_long %>%
   theme_classic()
 ```
 
-    ## Warning: The `<scale>` argument of `guides()` cannot be `FALSE`. Use "none" instead as
-    ## of ggplot2 3.3.4.
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
-
 ![](ApolloPy_R_StatDesc_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
@@ -124,7 +118,6 @@ data_df_long %>%
 
 ### Descriptive Statistics displaying DPS characteristics for each class and specilazitaion
 
-    ## Warning in qt((0.5 + p/2), (Nbrval - 1)): NaNs produced
 
 |              | Dk.Blood    | Dk.Frost | Dk.Unholy | Dru.Balance | Dru.Feral_Combat |
 |:-------------|:------------|:---------|:----------|:------------|:-----------------|
@@ -143,9 +136,6 @@ data_df_long %>%
 | std.dev      | 3480.45     | NA       | 2789.8    | 4591.38     | 3085.33          |
 | coef.var     | 0.28        | NA       | 0.1       | 0.19        | 0.14             |
 
-    ## Warning in qt((0.5 + p/2), (Nbrval - 1)): NaNs produced
-
-    ## Warning in qt((0.5 + p/2), (Nbrval - 1)): NaNs produced
 
 |              | Dru.Restoration | Hunt.Beast_Mastery | Hunt.Marksmanship | Hunt.Survival | Mag.Arcane |
 |:-------------|:----------------|:-------------------|:------------------|:--------------|:-----------|
@@ -164,7 +154,6 @@ data_df_long %>%
 | std.dev      | 61              | 2629.7             | NA                | 2405.69       | NA         |
 | coef.var     | 2               | 0.1                | NA                | 0.09          | NA         |
 
-    ## Warning in qt((0.5 + p/2), (Nbrval - 1)): NaNs produced
 
 |              | Mag.Fire    | Mag.Frost   | Pal.Holy | Pal.Protection | Pal.Retribution |
 |:-------------|:------------|:------------|:---------|:---------------|:----------------|
@@ -444,8 +433,6 @@ guild_bxplt_df <- guild_bxplt_df %>% dplyr::filter(DPS>1000)
 library(viridis)
 ```
 
-    ## Loading required package: viridisLite
-
 ``` r
 guild_bxplt_df %>% 
   ggplot( aes(x=guild_factor, y=DPS, fill=guild_factor, color=guild_factor)) +
@@ -479,14 +466,6 @@ guild_bxplt_df_guild %>%
   theme_classic() 
 ```
 
-    ## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
-    ## ℹ Please use `after_stat(density)` instead.
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
 ![](ApolloPy_R_StatDesc_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
@@ -503,8 +482,6 @@ guild_bxplt_df_guild %>%
   xlab("DPS") +
   theme_classic() 
 ```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
 ![](ApolloPy_R_StatDesc_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
