@@ -1,18 +1,8 @@
----
-title: "ApolloPy Descriptive Statistics"
-output: 
-  github_document:
-    fig_width: 7
-    fig_height: 5
----
-
-## DPS Comparisons for Baleroc 25 Heroic Difficulty
-
-```{r setup, include=FALSE}
+## ----setup, include=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------------
 knitr::opts_chunk$set(dpi=300,fig.width=7)
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # clear workspace
 rm(list = ls())
 
@@ -29,9 +19,9 @@ data_fightlen <- lapply(data, function(x) {x$length})
 class_spec <- lapply(files, function(x) {strsplit(x, "_")[[1]][3:4]})
 class      <- lapply(class_spec, function(x) {x[1]})
 spec       <- lapply(class_spec, function(x) {sub(" ", "_", x[2])})
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # append NAs to each vector if shorter than max_len
 max_len <- max(unlist(lapply(data_dps, function(x) {length(x)})))
 
@@ -50,32 +40,32 @@ data_df <- data.frame(x = rep(NA_character_, max_len))
 for (i in seq_along(data_dps_na)) {
  data_df[, i] <- data_dps_na[[i]]
 }
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # rename columns
 class_spec_2 <- list()
 for (i in seq_along(class)) {
   class_spec_2[i] <- paste0(class[[i]], ".", spec[[i]])
 }
 colnames(data_df) <- class_spec_2
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 suppressPackageStartupMessages(library(tidyverse))
 
 data_df <- plyr::colwise(as.numeric)(data_df)
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # convert wide to long format (ignore NAs)
 data_df_long <- data_df %>%
   gather(key = "class_spec", value = "DPS") %>%
   na.omit() %>%
   mutate()
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 data_df_long$class <- lapply(data_df_long$class_spec, function(x) {strsplit(x, ".", fixed = TRUE)[[1]][1]})
 data_df_long$class <- lapply(data_df_long$class, toupper)
 
@@ -85,12 +75,9 @@ data_df_long$spec <- lapply(data_df_long$spec, toupper)
 # trim leading white space
 data_df_long$class <- as.character(trimws(data_df_long$class))
 data_df_long$spec <- as.character(trimws(data_df_long$spec))
-```
 
-### Plotting DPS for each class
-All talent specializations are included. 
 
-```{r}
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Boxplot
 # Order: DK, Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warrior, Warlock
 class_colors <- c("#C41E3A", "#FF7C0A", "#AAD372", "#3FC7EB", "#F48CBA", "#FFFFFF", "#FFF468", "#0070DD", "#C69B6D", "#8788EE")
@@ -105,10 +92,9 @@ data_df_long %>%
   labs(fill="Classes") +
   guides(color=FALSE) +
   theme_classic()
-```
 
 
-```{r}
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Violin Plot
 data_df_long %>%
   ggplot(aes(x=class, y=DPS, fill = class, color = class)) +
@@ -119,37 +105,35 @@ data_df_long %>%
   labs(fill="Classes") +
   guides(color=FALSE) +
   theme_classic()
-```
 
-### Descriptive Statistics displaying DPS characteristics for each class and specilazitaion 
 
-```{r echo=FALSE, results='asis'}
+## ----echo=FALSE, results='asis'------------------------------------------------------------------------------------------------------------------------------------------------------------
 suppressPackageStartupMessages(library(pastecs))
 suppressPackageStartupMessages(library(knitr))
 kable(format(stat.desc(data_df[,1:5]), scientific=FALSE, digits=2))
-```
 
-```{r echo=FALSE, results='asis'}
+
+## ----echo=FALSE, results='asis'------------------------------------------------------------------------------------------------------------------------------------------------------------
 kable(format(stat.desc(data_df[,6:10]), scientific=FALSE, digits=2))
-```
 
-```{r echo=FALSE, results='asis'}
+
+## ----echo=FALSE, results='asis'------------------------------------------------------------------------------------------------------------------------------------------------------------
 kable(format(stat.desc(data_df[,11:15]), scientific=FALSE, digits=2))
-```
 
-```{r echo=FALSE, results='asis'}
+
+## ----echo=FALSE, results='asis'------------------------------------------------------------------------------------------------------------------------------------------------------------
 kable(format(stat.desc(data_df[,16:20]), scientific=FALSE, digits=2))
-```
 
-```{r echo=FALSE, results='asis'}
+
+## ----echo=FALSE, results='asis'------------------------------------------------------------------------------------------------------------------------------------------------------------
 kable(format(stat.desc(data_df[,21:25]), scientific=FALSE, digits=2))
-```
 
-```{r echo=FALSE, results='asis'}
+
+## ----echo=FALSE, results='asis'------------------------------------------------------------------------------------------------------------------------------------------------------------
 kable(format(stat.desc(data_df[,25:29]), scientific=FALSE, digits=2))
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # identifying highest DPS spec for each class
 classes_unique <- unique(unlist(class))
 max_dps_list <- list()
@@ -174,9 +158,9 @@ data_df_long$spec[data_df_long$spec=="FROST" & data_df_long$class=="MAG"] <- rep
 
 data_df_long$spec[data_df_long$spec=="RESTORATION" & data_df_long$class=="DRU"] <- rep(x="RESTORATION_DRU", times=length(data_df_long$spec[data_df_long$spec=="RESTORATION" & data_df_long$class=="DRU"]))
 data_df_long$spec[data_df_long$spec=="RESTORATION" & data_df_long$class=="SHAM"] <- rep(x="RESTORATION_SHAM", times=length(data_df_long$spec[data_df_long$spec=="RESTORATION" & data_df_long$class=="SHAM"]))
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # plot max DPS for each Class - Specialization Combination
 
 class_spec_count   <- list()
@@ -207,11 +191,9 @@ plot_df_max_dps %>%
   ggtitle("Highest DPS values per Talent Specialization") +
   theme_linedraw() +
   theme(axis.text.x=element_text(angle=90, hjust=1, vjust=0.5))
-```
 
-### Comparing DPS values for each class' highest DPS specialization
 
-```{r}
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # max DPS specs
 spec_number_cases <- colSums(! is.na(data_df))
 max_dps_spec_number_cases <- spec_number_cases[max_dps_spec_names]
@@ -241,9 +223,9 @@ new_x_axis <- lapply(max_dps_spec_number_cases, function(x) paste0("n=", x))
 new_legend <- mapply(function(x, y) {paste(x, y, sep=": ")},
                      x=data_df_max_dps_long_classes,
                      y=data_df_max_dps_long_specs)
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # barplots comparing best DPS specializations
 new_x_axis <- unname(unlist(new_x_axis))
 data_df_max_dps_long %>% 
@@ -257,9 +239,9 @@ data_df_max_dps_long %>%
   labs(fill="Class & Specialisation") +
   guides(color=FALSE) +
   theme_classic()
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # violinplots comparing best DPS specializations
 data_df_max_dps_long %>% 
   ggplot( aes(x=class, y=DPS, fill=class_spec, color=class_spec)) +
@@ -271,11 +253,9 @@ data_df_max_dps_long %>%
   labs(fill="Class & Specialisation") +
   guides(color=FALSE) +
   theme_classic()
-```
 
-### Comparing DPS values based on Guild Membership Status (yes/no) 
 
-```{r}
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # create a full dataframe (including item-level, fight length, and guild membership)
 data_guild <- lapply(data, function(x) {x$guild})
 
@@ -289,9 +269,9 @@ df_full_long$guild <- ifelse(df_full_long$guild=="", NA, df_full_long$guild)
 # remove non-dps specs
 non_dps <- c("Dk.Blood", "Dru.Restoration", "Pal.Holy", "Pal.Protection", "Pri.Discipline", "Pri.Holy", "Sham.Restoration")
 df_dps_full_long <- df_full_long %>% dplyr::filter(!(class_spec %in% non_dps))
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # compare damage of characters in a guild vs. characters in no guild
 guild_dps <- df_dps_full_long$DPS[!is.na(df_dps_full_long$guild)]
 noguild_dps <- df_dps_full_long$DPS[is.na(df_dps_full_long$guild)]
@@ -319,8 +299,8 @@ cat(paste0("\n\nNon-Members:\nN = ",length(noguild_dps),
              "\nSD = ", round(sd_dps_noguild, 2),
              "\nRange = ", round(min_dps_noguild, 2), " - ", round(max_dps_noguild, 2)
              ))
-```
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # boxplot comparing average DPS for guild vs. not-guild members
 
 guild_bxplt_df <- data.frame(
@@ -347,9 +327,9 @@ guild_bxplt_df %>%
   labs(fill="") +
   guides(color=FALSE) +
   theme_classic()
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # histogram with normal distribution laid over
 
 guild_bxplt_df_guild <- data.frame(x=guild_bxplt_df$DPS[guild_bxplt_df=="guild"])
@@ -363,9 +343,9 @@ guild_bxplt_df_guild %>%
   xlab("DPS") +
   theme_classic() 
 
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # histogram with normal distribution laid over
 
 guild_bxplt_df_guild <- data.frame(x=guild_bxplt_df$DPS[guild_bxplt_df=="noguild"])
@@ -378,27 +358,20 @@ guild_bxplt_df_guild %>%
   ylab("") +
   xlab("DPS") +
   theme_classic() 
-```
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # test equal variances (Levene's Test)
 suppressPackageStartupMessages(library(car))
 leveneTest(DPS ~ factor(guild_factor), guild_bxplt_df)
-```
-### Hypothesis testing whether group means differ between Guild and Not-Guild Members
 
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 t.test(DPS ~ factor(guild_factor), guild_bxplt_df, var.equal=TRUE)
-```
 
-Bayes Factor T-Test: quantifying likelihood for equal means (i.e. classical t-test Null Hypothesis)
-```{r}
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Bayesian t-test: do both samples have similar means
 suppressPackageStartupMessages(library(BayesFactor))
 ttestBF(x=guild_bxplt_df$DPS[guild_bxplt_df$guild_factor=="guild"], y=guild_bxplt_df$DPS[guild_bxplt_df$guild_factor=="noguild"])
-```
-Bayes Factor = 0.1251 +/- 0.11. 
--> Different means are very unlikely / very likely that means are similar. 
--> Guild and Not-Guild Members do not differ in their average DPS.
-
 
