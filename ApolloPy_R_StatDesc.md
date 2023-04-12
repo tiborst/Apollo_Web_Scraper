@@ -402,15 +402,13 @@ cat(paste0("Member of a guild:\nN = ",length(guild_dps),
     ## Range = 10702.41 - 35362.39
 
 ``` r
-cat(paste0("\n\nNon-Members:\nN = ",length(noguild_dps), 
+cat(paste0("Non-Members:\nN = ",length(noguild_dps), 
              "\nMean DPS = ", round(mean_dps_noguild, 2),
              "\nSD = ", round(sd_dps_noguild, 2),
              "\nRange = ", round(min_dps_noguild, 2), " - ", round(max_dps_noguild, 2)
              ))
 ```
 
-    ## 
-    ## 
     ## Non-Members:
     ## N = 112
     ## Mean DPS = 27453.35
