@@ -12,17 +12,6 @@ rm(list = ls())
 library(tidyverse)
 ```
 
-    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ## ✔ dplyr     1.1.1     ✔ readr     2.1.4
-    ## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-    ## ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-    ## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-    ## ✔ purrr     1.0.1     
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-
 ``` r
 library(ggpubr)
 suppressPackageStartupMessages(library(rstatix))
@@ -317,11 +306,6 @@ df_max_dps %>%
   theme_minimal()
 ```
 
-    ## Warning: Removed 1 rows containing non-finite values (`stat_boxplot()`).
-    ## Removed 1 rows containing non-finite values (`stat_boxplot()`).
-
-    ## Warning: Removed 1 rows containing non-finite values (`stat_signif()`).
-
 ![](ApolloPy_R_Anl01_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ## Comparing DPS values based on individual Guild Membership
@@ -608,11 +592,6 @@ df_dps %>%
   theme_classic()
 ```
 
-    ## Warning: Removed 1 rows containing non-finite values (`stat_boxplot()`).
-    ## Removed 1 rows containing non-finite values (`stat_boxplot()`).
-
-    ## Warning: Removed 1 rows containing non-finite values (`stat_signif()`).
-
 ![](ApolloPy_R_Anl01_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 ## Visualizing Interaction Effect of Item-Level and Guild Membership on DPS
@@ -651,20 +630,6 @@ df_dps %>%
   theme_classic()
 ```
 
-    ## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-    ## ℹ Please use `linewidth` instead.
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
-
-    ## Warning: The `<scale>` argument of `guides()` cannot be `FALSE`. Use "none" instead as
-    ## of ggplot2 3.3.4.
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
-
-    ## `geom_smooth()` using formula = 'y ~ x'
-
 ![](ApolloPy_R_Anl01_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 ``` r
@@ -682,7 +647,5 @@ df_dps %>%
   facet_wrap(~guild, nrow=2, as.table=FALSE) +
   theme_classic()
 ```
-
-    ## `geom_smooth()` using formula = 'y ~ x'
 
 ![](ApolloPy_R_Anl01_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
