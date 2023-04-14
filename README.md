@@ -1,5 +1,5 @@
 # Apollo2_scraper
-Webscraper of WoW private server data (with permission from site owner)
+Webscraper of WoW private server data (with permission from site owner).
 
 Current progress:
 
