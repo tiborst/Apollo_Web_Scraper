@@ -3,6 +3,8 @@
 import os
 from configparser import ConfigParser
 
+# hey cool
+
 # database config
 def config(filename="database.ini", section='postgresql'):
     
